@@ -55,7 +55,11 @@ public class Trie {
 
   public void add(String s) {
     if (s.length() < 1)
-      return;
+      throw new IllegalArgumentException("string length is less than 1");
+
+    // XXX: maybe allow spaces?
+    if (s.matches("\\s"))
+      throw new IllegalArgumentException("string contains spaces");;
 
     Node n = new Node(s.charAt(0));
     children.add(n);
