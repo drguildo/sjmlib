@@ -46,6 +46,16 @@ public class HTTP {
     return sb.toString();
   }
 
+  /**
+   * Searches a URL for all strings matching a regular expression.
+   *
+   * @param url
+   *          the URL to search
+   * @param pattern
+   *          the regular expression to match
+   * @return the matches found
+   * @throws IOException
+   */
   public static Collection<String> matches(URL url, String pattern)
       throws IOException {
     HashSet<String> matches = new HashSet<String>();
@@ -77,14 +87,16 @@ public class HTTP {
     BufferedInputStream in = null;
     FileOutputStream out = null;
 
-    if (file.exists())
+    System.out.print(file + ": ");
+
+    if (file.exists()) {
+      System.out.println("skipping");
       return;
+    }
 
     try {
       in = new BufferedInputStream(url.openStream());
       out = new FileOutputStream(file);
-
-      System.out.print(file + ": ");
 
       byte data[] = new byte[BLOCK_SIZE];
       int count;
