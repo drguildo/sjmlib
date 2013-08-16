@@ -14,6 +14,13 @@ public class TrieTest {
 
     t.add("abcd");
     assertTrue(t.contains("abcd"));
+    assertFalse(t.contains(""));
+    assertFalse(t.contains("abc"));
+    assertFalse(t.contains("abcde"));
+
+    t.add("abcd");
+    assertTrue(t.contains("abcd"));
+    assertFalse(t.contains(""));
     assertFalse(t.contains("abc"));
     assertFalse(t.contains("abcde"));
   }
