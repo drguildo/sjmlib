@@ -1,20 +1,23 @@
 package com.drguildo.stdlib;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class Trie {
   private class Node {
     private char c;
-    private HashSet<Node> children;
+    private ArrayList<Node> children;
     private boolean terminated;
 
     public Node(char c) {
       this.c = c;
-      children = new HashSet<Node>();
+      children = new ArrayList<Node>();
       terminated = false;
     }
 
     public Node addChild(char c) {
+      if (hasChild(c))
+        return getChild(c);
+
       Node n = new Node(c);
       children.add(n);
       return n;
@@ -47,10 +50,10 @@ public class Trie {
     }
   }
 
-  private HashSet<Node> children;
+  private ArrayList<Node> children;
 
   public Trie() {
-    children = new HashSet<Node>();
+    children = new ArrayList<Node>();
   }
 
   public void add(String s) {
@@ -59,7 +62,8 @@ public class Trie {
 
     // XXX: maybe allow spaces?
     if (s.matches("\\s"))
-      throw new IllegalArgumentException("string contains spaces");;
+      throw new IllegalArgumentException("string contains spaces");
+    ;
 
     Node n = new Node(s.charAt(0));
     children.add(n);
@@ -86,10 +90,11 @@ public class Trie {
       return false;
 
     for (int i = 1; i < s.length(); i++)
-      if (n.hasChild(s.charAt(i)))
+      if (n.hasChild(s.charAt(i))) {
         n = n.getChild(s.charAt(i));
-      else
+      } else {
         return false;
+      }
 
     return n.isTerminated();
   }
