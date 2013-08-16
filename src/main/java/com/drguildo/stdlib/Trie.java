@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Trie {
   private class Node {
-    private char c;
+    private char val;
     private ArrayList<Node> children;
     private boolean terminated;
 
     public Node(char c) {
-      this.c = c;
+      val = c;
       children = new ArrayList<Node>();
       terminated = false;
     }
@@ -27,6 +27,7 @@ public class Trie {
       for (Node n : children)
         if (n.getChar() == c)
           return true;
+
       return false;
     }
 
@@ -38,7 +39,7 @@ public class Trie {
     }
 
     public char getChar() {
-      return c;
+      return val;
     }
 
     public void setTerminated() {
@@ -47,6 +48,10 @@ public class Trie {
 
     public boolean isTerminated() {
       return terminated;
+    }
+
+    public String toString() {
+      return "" + val + (isTerminated() ? "|" : "") + children;
     }
   }
 
@@ -60,17 +65,21 @@ public class Trie {
     if (s.length() < 1)
       throw new IllegalArgumentException("string length is less than 1");
 
-    // XXX: maybe allow spaces?
     if (s.matches("\\s"))
       throw new IllegalArgumentException("string contains spaces");
-    ;
 
-    Node n = new Node(s.charAt(0));
-    children.add(n);
+    Node n = null;
+    for (Node child : children)
+      if (child.getChar() == s.charAt(0))
+        n = child;
 
-    for (int i = 1; i < s.length(); i++) {
-      n = n.addChild(s.charAt(i));
+    if (n == null) {
+      n = new Node(s.charAt(0));
+      children.add(n);
     }
+
+    for (int i = 1; i < s.length(); i++)
+      n = n.addChild(s.charAt(i));
 
     n.setTerminated();
   }
@@ -90,12 +99,15 @@ public class Trie {
       return false;
 
     for (int i = 1; i < s.length(); i++)
-      if (n.hasChild(s.charAt(i))) {
+      if (n.hasChild(s.charAt(i)))
         n = n.getChild(s.charAt(i));
-      } else {
+      else
         return false;
-      }
 
     return n.isTerminated();
+  }
+
+  public String toString() {
+    return children.toString();
   }
 }
