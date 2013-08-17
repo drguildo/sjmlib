@@ -77,13 +77,13 @@ public class HTTP {
    * Downloads a URL to the specified filename. Existing files will not be
    * overwritten.
    *
-   * @param file
-   *          the local file that the URL will be written to
    * @param url
    *          the URL to download
+   * @param file
+   *          the local file that the URL will be written to
    * @throws IOException
    */
-  public static void download(File file, URL url) throws IOException {
+  public static void download(URL url, File file) throws IOException {
     BufferedInputStream in = null;
     FileOutputStream out = null;
 
@@ -122,7 +122,7 @@ public class HTTP {
    * @throws IOException
    */
   public static void download(URL url) throws IOException {
-    HTTP.download(new File(filename(url)), url);
+    HTTP.download(url, new File(filename(url)));
   }
 
   /**
@@ -140,7 +140,7 @@ public class HTTP {
       file = new File(url.getFile().substring(1));
       if (!file.exists()) {
         file.getParentFile().mkdirs();
-        download(file, url);
+        download(url, file);
       }
     }
   }
