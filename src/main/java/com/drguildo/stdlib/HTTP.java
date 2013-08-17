@@ -122,7 +122,7 @@ public class HTTP {
    * @throws IOException
    */
   public static void download(URL url) throws IOException {
-    HTTP.download(url, new File(filename(url)));
+    download(url, new File(filename(url)));
   }
 
   /**
