@@ -90,7 +90,7 @@ public class HTTP {
     System.out.print(file + ": ");
 
     if (file.exists()) {
-      System.out.println("skipping");
+      System.out.println("file exists; skipping");
       return;
     }
 
@@ -138,10 +138,8 @@ public class HTTP {
     for (URL url : urls) {
       // Remove the preceding '/'.
       file = new File(url.getFile().substring(1));
-      if (!file.exists()) {
-        file.getParentFile().mkdirs();
-        download(url, file);
-      }
+      file.getParentFile().mkdirs();
+      download(url, file);
     }
   }
 
