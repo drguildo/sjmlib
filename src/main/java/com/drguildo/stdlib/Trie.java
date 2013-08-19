@@ -12,12 +12,25 @@ public class Trie {
     private ArrayList<Node> children;
     private boolean terminated;
 
+    /**
+     * Creates a new node.
+     *
+     * @param c
+     *          the value of the node
+     */
     public Node(char c) {
       val = c;
       children = new ArrayList<Node>();
       terminated = false;
     }
 
+    /**
+     * Adds a new child node.
+     *
+     * @param c
+     *          the value of the child node
+     * @return the new child node
+     */
     public Node addChild(char c) {
       if (hasChild(c))
         return getChild(c);
@@ -27,6 +40,13 @@ public class Trie {
       return n;
     }
 
+    /**
+     * Checks whether this node has a child with the specified value.
+     *
+     * @param c
+     *          the value of the child node
+     * @return whether this node has a child with the specified value
+     */
     public boolean hasChild(char c) {
       for (Node n : children)
         if (n.getChar() == c)
@@ -35,6 +55,15 @@ public class Trie {
       return false;
     }
 
+    /**
+     * Returns the child node with the specified value.
+     *
+     * @param c
+     *          the value of the child node to return
+     * @return the child value with the specified value
+     * @throws IllegalArgumentException
+     *           if a child with the specified value is not found
+     */
     public Node getChild(char c) throws IllegalArgumentException {
       for (Node n : children)
         if (n.getChar() == c)
@@ -42,14 +71,31 @@ public class Trie {
       throw new IllegalArgumentException("node not found");
     }
 
+    /**
+     * Returns the value of this node.
+     *
+     * @return the value of this node
+     */
     public char getChar() {
       return val;
     }
 
+    /**
+     * Set this node to be a terminator. A terminator can be seen as the end of
+     * a branch or the end of a sequence. However, just because a node is a
+     * terminator does not mean it cannot have children. For example in the
+     * sequence "penises", the first "s" would be a terminator but would have
+     * "e" and the second "s" as children.
+     */
     public void setTerminated() {
       terminated = true;
     }
 
+    /**
+     * Returns whether this node is a terminator.
+     *
+     * @return whether this node is a terminator
+     */
     public boolean isTerminated() {
       return terminated;
     }
@@ -65,6 +111,12 @@ public class Trie {
     children = new ArrayList<Node>();
   }
 
+  /**
+   * Add a new string to this trie.
+   *
+   * @param s
+   *          the string to add
+   */
   public void add(String s) {
     if (s.length() < 1)
       throw new IllegalArgumentException("string length is less than 1");
@@ -88,6 +140,13 @@ public class Trie {
     n.setTerminated();
   }
 
+  /**
+   * Checks whether a string is contained in the trie.
+   *
+   * @param s
+   *          the string to search for
+   * @return whether the trie contains the string
+   */
   public boolean contains(String s) {
     if (s.length() < 1)
       return false;
@@ -126,6 +185,14 @@ public class Trie {
       }
   }
 
+  /**
+   * Returns a collection of all anagrams of the specified string that are
+   * contained in the trie.
+   *
+   * @param s
+   *          the string to search for anagrams of
+   * @return a collection of all anagrams found
+   */
   public Collection<String> getAnagrams(String s) {
     anagrams = new HashSet<String>();
 
