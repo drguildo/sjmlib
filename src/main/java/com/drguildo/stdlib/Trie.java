@@ -1,8 +1,12 @@
 package com.drguildo.stdlib;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 
 public class Trie {
+  private HashSet<String> anagrams;
+
   private class Node {
     private char val;
     private ArrayList<Node> children;
@@ -105,6 +109,41 @@ public class Trie {
         return false;
 
     return n.isTerminated();
+  }
+
+  private void anagramSearch(ArrayList<Character> cs, Node n, String s) {
+    s = s + n.getChar();
+
+    if (n.isTerminated())
+      anagrams.add(s);
+
+    ArrayList<Character> copy;
+    for (Character c : cs)
+      if (n.hasChild(c)) {
+        copy = new ArrayList<Character>(cs);
+        copy.remove(copy.indexOf(c));
+        anagramSearch(copy, n.getChild(c), s);
+      }
+  }
+
+  public Collection<String> getAnagrams(String s) {
+    anagrams = new HashSet<String>();
+
+    ArrayList<Character> cs = new ArrayList<Character>();
+    for (char c : s.toCharArray())
+      cs.add(c);
+
+    ArrayList<Character> copy;
+    for (Character c : cs)
+      for (Node n : children) {
+        if (n.getChar() == c) {
+          copy = new ArrayList<Character>(cs);
+          copy.remove(copy.indexOf(c));
+          anagramSearch(copy, n, "");
+        }
+      }
+
+    return anagrams;
   }
 
   public String toString() {
