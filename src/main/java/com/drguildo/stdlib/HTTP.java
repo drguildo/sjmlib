@@ -6,8 +6,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.regex.Matcher;
@@ -84,9 +86,6 @@ public class HTTP {
    * @throws IOException
    */
   public static void download(URL url, File file) throws IOException {
-    BufferedInputStream in = null;
-    FileOutputStream out = null;
-
     System.out.print(file + ": ");
 
     if (file.exists()) {
@@ -94,15 +93,28 @@ public class HTTP {
       return;
     }
 
+    BufferedInputStream in = null;
+    FileOutputStream out = null;
+    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+    long fileSize = conn.getContentLengthLong();
+    String sizeStr = sizeString(fileSize);
+    long read = 0; // how many bytes we've read so far
+
     try {
-      in = new BufferedInputStream(url.openStream());
+      in = new BufferedInputStream(conn.getInputStream());
       out = new FileOutputStream(file);
 
       byte data[] = new byte[BLOCK_SIZE];
       int count;
       while ((count = in.read(data, 0, BLOCK_SIZE)) != -1) {
         out.write(data, 0, count);
-        System.out.print(".");
+        if (fileSize == -1) {
+          System.out.print(".");
+        } else {
+          read = read + count;
+          System.out.print("\r" + file + ": ");
+          System.out.print(read + "/" + fileSize + " (" + sizeStr + ")");
+        }
       }
       System.out.println();
     } finally {
@@ -158,12 +170,15 @@ public class HTTP {
     }
   }
 
-  public static void main(String[] args) throws MalformedURLException,
-      IOException {
-    System.out
-        .println(matches(
-            new URL(
-                "http://www.yuvutu.com/modules.php?name=Video&op=view&video_id=945450"),
-            "file=(http://\\S+?\\.mp4\\S+?)&amp;width"));
+  private static String sizeString(long size) {
+    if (size <= 0)
+      return "0";
+
+    String[] units = new String[] { "B", "KB", "MB", "GB", "TB", "PB", "EB" };
+    int digitGroups = (int) (Math.log10(size) / Math.log10(1000));
+
+    return new DecimalFormat("#,##0.#").format(size
+        / Math.pow(1000, digitGroups))
+        + units[digitGroups];
   }
 }
