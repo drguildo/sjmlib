@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+// FIXME: Deal with certain classes of error (e.g. 504).
 public class HTTP {
   private static final int BLOCK_SIZE = 8192;
 
@@ -113,6 +114,7 @@ public class HTTP {
         } else {
           read = read + count;
           System.out.print("\r" + file + ": ");
+          // TODO: use percentages instead
           System.out.print(read + "/" + fileSize + " (" + sizeStr + ")");
         }
       }
