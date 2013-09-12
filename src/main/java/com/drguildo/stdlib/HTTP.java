@@ -16,10 +16,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 // FIXME: Deal with certain classes of error (e.g. 504).
-/**
- * @author Simon
- * 
- */
 public class HTTP {
   private static final int BLOCK_SIZE = 8192;
   private static final char[] prgrsSmbls = { '-', '\\', '/' };
