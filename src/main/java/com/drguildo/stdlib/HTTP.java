@@ -112,7 +112,7 @@ public class HTTP {
       while ((count = in.read(data, 0, BLOCK_SIZE)) != -1) {
         out.write(data, 0, count);
         if (fileSize == -1) {
-          System.out.print(".");
+          System.out.print(nextPrgrs());
         } else {
           read = read + count;
           System.out.print("\r" + file + ": ");
