@@ -16,12 +16,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 // FIXME: Deal with certain classes of error (e.g. 504).
+/**
+ * @author Simon
+ * 
+ */
 public class HTTP {
   private static final int BLOCK_SIZE = 8192;
+  private static final char[] prgrsSmbls = { '-', '\\', '/' };
+  private static int prgrsIndx = 0;
 
   /**
    * Fetches a URL and returns it as a string.
-   *
+   * 
    * @param url
    *          the URL to fetch
    * @return the URL's string representation
@@ -51,7 +57,7 @@ public class HTTP {
 
   /**
    * Searches a URL for all strings matching a regular expression.
-   *
+   * 
    * @param url
    *          the URL to search
    * @param pattern
@@ -79,7 +85,7 @@ public class HTTP {
   /**
    * Downloads a URL to the specified filename. Existing files will not be
    * overwritten.
-   *
+   * 
    * @param url
    *          the URL to download
    * @param file
@@ -114,8 +120,9 @@ public class HTTP {
         } else {
           read = read + count;
           System.out.print("\r" + file + ": ");
-          // TODO: use percentages instead
-          System.out.print(read + "/" + fileSize + " (" + sizeStr + ")");
+          System.out.print(percent(read, fileSize) + " ");
+          System.out.print("(" + sizeStr + ") ");
+          System.out.print(nextPrgrs());
         }
       }
       System.out.println();
@@ -130,7 +137,7 @@ public class HTTP {
   /**
    * Downloads a URL to the current directory, preserving the filename. Existing
    * files will not be overwritten.
-   *
+   * 
    * @param url
    *          the URL to download
    * @throws IOException
@@ -141,7 +148,7 @@ public class HTTP {
 
   /**
    * Downloads a list of URLs. Existing files will not be overwritten.
-   *
+   * 
    * @param urls
    *          a list of URLs
    * @throws IOException
@@ -159,7 +166,7 @@ public class HTTP {
 
   /**
    * Attempts to return the filename portion of a URL.
-   *
+   * 
    * @param url
    * @return the filename or null otherwise
    */
@@ -170,6 +177,24 @@ public class HTTP {
     } catch (IndexOutOfBoundsException e) {
       return null;
     }
+  }
+
+  /**
+   * @param x
+   * @param y
+   * @return a string representing x as a percentage of y
+   */
+  private static String percent(long x, long y) {
+    return new DecimalFormat("##.#%").format((double) x / y);
+  }
+
+  private static char nextPrgrs() {
+    char c = prgrsSmbls[prgrsIndx];
+    if (prgrsIndx + 1 == prgrsSmbls.length)
+      prgrsIndx = 0;
+    else
+      prgrsIndx++;
+    return c;
   }
 
   private static String sizeString(long size) {
