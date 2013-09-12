@@ -115,7 +115,7 @@ public class HTTP {
           read = read + count;
           System.out.print("\r" + file + ": ");
           System.out.print(percent(read, fileSize) + " ");
-          System.out.print("(" + sizeStr + ") ");
+          System.out.print("(" + sizeStr + ")");
         }
       }
       System.out.println();
