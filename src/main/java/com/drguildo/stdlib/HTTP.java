@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.HashSet;
@@ -76,17 +77,8 @@ public class HTTP {
     return matches;
   }
 
-  /**
-   * Downloads a URL to the specified filename. Existing files will not be
-   * overwritten.
-   * 
-   * @param url
-   *          the URL to download
-   * @param file
-   *          the local file that the URL will be written to
-   * @throws IOException
-   */
-  public static void download(URL url, File file) throws IOException {
+  private static void download(HttpURLConnection conn, File file)
+      throws IOException {
     System.out.print(file + ": ");
 
     if (file.exists()) {
@@ -94,20 +86,19 @@ public class HTTP {
       return;
     }
 
-    BufferedInputStream in = null;
+    BufferedInputStream bin = null;
     FileOutputStream out = null;
-    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
     long fileSize = conn.getContentLengthLong();
     String sizeStr = sizeString(fileSize);
     long read = 0; // how many bytes we've read so far
 
     try {
-      in = new BufferedInputStream(conn.getInputStream());
+      bin = new BufferedInputStream(conn.getInputStream());
       out = new FileOutputStream(file);
 
       byte data[] = new byte[BLOCK_SIZE];
       int count;
-      while ((count = in.read(data, 0, BLOCK_SIZE)) != -1) {
+      while ((count = bin.read(data, 0, BLOCK_SIZE)) != -1) {
         out.write(data, 0, count);
         if (fileSize == -1) {
           System.out.print(".");
@@ -120,11 +111,27 @@ public class HTTP {
       }
       System.out.println();
     } finally {
-      if (in != null)
-        in.close();
+      if (bin != null)
+        bin.close();
       if (out != null)
         out.close();
     }
+  }
+
+  /**
+   * Downloads a URL to the specified filename. Existing files will not be
+   * overwritten.
+   * 
+   * @param url
+   *          the URL to download
+   * @param file
+   *          the local file that the URL will be written to
+   * @throws IOException
+   */
+  public static void download(URL url, File file) throws IOException {
+    URLConnection conn = url.openConnection();
+
+    download((HttpURLConnection) conn, file);
   }
 
   /**
@@ -136,7 +143,14 @@ public class HTTP {
    * @throws IOException
    */
   public static void download(URL url) throws IOException {
-    download(url, new File(filename(url)));
+    URLConnection conn = url.openConnection();
+
+    // This needs to be called so that the call to conn.getURL() gives us the
+    // correct URL in cases where we get redirected.
+    conn.getInputStream();
+    System.out.println("redirected url: " + conn.getURL());
+
+    download((HttpURLConnection) conn, new File(filename(conn.getURL())));
   }
 
   /**
@@ -165,6 +179,7 @@ public class HTTP {
    */
   public static String filename(URL url) {
     String path = url.getPath();
+
     try {
       return path.substring(path.lastIndexOf('/') + 1);
     } catch (IndexOutOfBoundsException e) {
