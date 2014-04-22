@@ -135,6 +135,27 @@ public class HTTP {
   }
 
   /**
+   * Downloads a URL to the specified directory, creating it if it doesn't
+   * exist. Existing files will not be overwritten.
+   * 
+   * @param url
+   *          the URL to download
+   * @param dirName
+   *          the directory to download the file to
+   * @throws IOException
+   */
+  public static void download(URL url, String dirName) throws IOException {
+    URLConnection conn = url.openConnection();
+
+    File dir = new File(dirName);
+    if (!dir.exists())
+      dir.mkdirs();
+
+    download((HttpURLConnection) conn, new File(dirName + File.separator
+        + filename(url)));
+  }
+
+  /**
    * Downloads a URL to the current directory, preserving the filename. Existing
    * files will not be overwritten.
    * 
