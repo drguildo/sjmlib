@@ -182,7 +182,7 @@ public class HTTP {
    * @throws IOException
    */
   public static void download(Collection<URL> urls) throws IOException {
-    File file = null;
+    File file;
 
     for (URL url : urls) {
       // Remove the preceding '/'.
