@@ -21,60 +21,31 @@ public class HTTP {
   private static final int BLOCK_SIZE = 8192;
 
   /**
-   * Fetches a URL and returns it as a string.
+   * Downloads a list of URLs. Existing files will not be overwritten.
    * 
-   * @param url
-   *          the URL to fetch
-   * @return the URL's string representation
+   * @param urls
+   *          a list of URLs
    * @throws IOException
    */
-  public static String fetch(URL url) throws IOException {
-    BufferedReader br = null;
-
-    String line = null;
-    StringBuilder sb = new StringBuilder();
-
-    try {
-      br = new BufferedReader(new InputStreamReader(url.openStream()));
-
-      while ((line = br.readLine()) != null) {
-        sb.append(line);
-      }
-    } catch (MalformedURLException e) {
-      e.printStackTrace();
-    } finally {
-      if (br != null)
-        br.close();
-    }
-
-    return sb.toString();
+  public static void download(Collection<URL> urls) throws IOException {
+    for (URL url : urls)
+      download(url);
   }
 
   /**
-   * Searches a URL for all strings matching a regular expression.
+   * Downloads a list of URLs to the specified directory. Existing files will
+   * not be overwritten.
    * 
-   * @param url
-   *          the URL to search
-   * @param pattern
-   *          the regular expression to match
-   * @return the matches found
+   * @param urls
+   *          a list of URLs
+   * @param dirName
+   *          the name of the directory to which the files will be downloaded
    * @throws IOException
    */
-  public static Collection<String> matches(URL url, String pattern)
+  public static void download(Collection<URL> urls, String dirName)
       throws IOException {
-    HashSet<String> matches = new HashSet<String>();
-
-    String text = fetch(url);
-
-    Pattern p = Pattern.compile(pattern);
-    Matcher m = p.matcher(text);
-    while (m.find()) {
-      matches.add(m.group(0));
-      for (int i = 1; i <= m.groupCount(); i++)
-        matches.add(m.group(i));
-    }
-
-    return matches;
+    for (URL url : urls)
+      download(url, dirName);
   }
 
   private static void download(HttpURLConnection conn, File file)
@@ -119,6 +90,25 @@ public class HTTP {
   }
 
   /**
+   * Downloads a URL to the current directory, preserving the filename. Existing
+   * files will not be overwritten.
+   * 
+   * @param url
+   *          the URL to download
+   * @throws IOException
+   */
+  public static void download(URL url) throws IOException {
+    URLConnection conn = url.openConnection();
+
+    // This needs to be called so that the call to conn.getURL() gives us the
+    // correct URL in cases where we get redirected.
+    conn.getInputStream();
+    System.out.println("redirected url: " + conn.getURL());
+
+    download((HttpURLConnection) conn, new File(filename(conn.getURL())));
+  }
+
+  /**
    * Downloads a URL to the specified filename. Existing files will not be
    * overwritten.
    * 
@@ -141,13 +131,17 @@ public class HTTP {
    * @param url
    *          the URL to download
    * @param dirName
-   *          the directory to download the file to
+   *          the directory to download the files to
    * @throws IOException
    */
   public static void download(URL url, String dirName) throws IOException {
     URLConnection conn = url.openConnection();
 
     File dir = new File(dirName);
+
+    if (dir.exists() && !dir.isDirectory())
+      throw new IOException(dirName + " exists but is not a directory");
+
     if (!dir.exists())
       dir.mkdirs();
 
@@ -156,40 +150,33 @@ public class HTTP {
   }
 
   /**
-   * Downloads a URL to the current directory, preserving the filename. Existing
-   * files will not be overwritten.
+   * Fetches a URL and returns it as a string.
    * 
    * @param url
-   *          the URL to download
+   *          the URL to fetch
+   * @return the URL's string representation
    * @throws IOException
    */
-  public static void download(URL url) throws IOException {
-    URLConnection conn = url.openConnection();
+  public static String fetch(URL url) throws IOException {
+    BufferedReader br = null;
 
-    // This needs to be called so that the call to conn.getURL() gives us the
-    // correct URL in cases where we get redirected.
-    conn.getInputStream();
-    System.out.println("redirected url: " + conn.getURL());
+    String line = null;
+    StringBuilder sb = new StringBuilder();
 
-    download((HttpURLConnection) conn, new File(filename(conn.getURL())));
-  }
+    try {
+      br = new BufferedReader(new InputStreamReader(url.openStream()));
 
-  /**
-   * Downloads a list of URLs. Existing files will not be overwritten.
-   * 
-   * @param urls
-   *          a list of URLs
-   * @throws IOException
-   */
-  public static void download(Collection<URL> urls) throws IOException {
-    File file;
-
-    for (URL url : urls) {
-      // Remove the preceding '/'.
-      file = new File(url.getFile().substring(1));
-      file.getParentFile().mkdirs();
-      download(url, file);
+      while ((line = br.readLine()) != null) {
+        sb.append(line);
+      }
+    } catch (MalformedURLException e) {
+      e.printStackTrace();
+    } finally {
+      if (br != null)
+        br.close();
     }
+
+    return sb.toString();
   }
 
   /**
@@ -206,6 +193,33 @@ public class HTTP {
     } catch (IndexOutOfBoundsException e) {
       return null;
     }
+  }
+
+  /**
+   * Searches a URL for all strings matching a regular expression.
+   * 
+   * @param url
+   *          the URL to search
+   * @param pattern
+   *          the regular expression to match
+   * @return the matches found
+   * @throws IOException
+   */
+  public static Collection<String> matches(URL url, String pattern)
+      throws IOException {
+    HashSet<String> matches = new HashSet<String>();
+
+    String text = fetch(url);
+
+    Pattern p = Pattern.compile(pattern);
+    Matcher m = p.matcher(text);
+    while (m.find()) {
+      matches.add(m.group(0));
+      for (int i = 1; i <= m.groupCount(); i++)
+        matches.add(m.group(i));
+    }
+
+    return matches;
   }
 
   /**
