@@ -3,6 +3,7 @@ package com.drguildo.stdlib;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -59,11 +60,12 @@ public class HTTP {
 
     BufferedInputStream bin = null;
     FileOutputStream out = null;
-    long fileSize = conn.getContentLengthLong();
-    String sizeStr = sizeString(fileSize);
-    long read = 0; // how many bytes we've read so far
 
     try {
+      long fileSize = conn.getContentLengthLong();
+      String sizeStr = sizeString(fileSize);
+      long read = 0; // how many bytes we've read so far
+
       bin = new BufferedInputStream(conn.getInputStream());
       out = new FileOutputStream(file);
 
@@ -81,6 +83,11 @@ public class HTTP {
         }
       }
       System.out.println();
+    } catch (FileNotFoundException e) {
+      System.out.println("file not found");
+
+      if (file.exists())
+        file.delete();
     } finally {
       if (bin != null)
         bin.close();
@@ -102,7 +109,12 @@ public class HTTP {
 
     // This needs to be called so that the call to conn.getURL() gives us the
     // correct URL in cases where we get redirected.
-    conn.getInputStream();
+    try {
+      conn.getInputStream();
+    } catch (FileNotFoundException e) {
+      System.err.println(filename(conn.getURL()) + ": file not found");
+      return;
+    }
     System.out.println("redirected url: " + conn.getURL());
 
     download((HttpURLConnection) conn, new File(filename(conn.getURL())));
