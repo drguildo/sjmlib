@@ -49,7 +49,7 @@ public class HTTP {
       download(url, dirName);
   }
 
-  private static void download(HttpURLConnection conn, File file)
+  private static void download(HttpURLConnection con, File file)
       throws IOException {
     System.out.print(file + ": ");
 
@@ -62,11 +62,11 @@ public class HTTP {
     FileOutputStream out = null;
 
     try {
-      long fileSize = conn.getContentLengthLong();
+      long fileSize = con.getContentLengthLong();
       String sizeStr = sizeString(fileSize);
       long read = 0; // how many bytes we've read so far
 
-      bin = new BufferedInputStream(conn.getInputStream());
+      bin = new BufferedInputStream(con.getInputStream());
       out = new FileOutputStream(file);
 
       byte data[] = new byte[BLOCK_SIZE];
@@ -105,19 +105,19 @@ public class HTTP {
    * @throws IOException
    */
   public static void download(URL url) throws IOException {
-    URLConnection conn = url.openConnection();
+    URLConnection con = url.openConnection();
 
-    // This needs to be called so that the call to conn.getURL() gives us the
+    // This needs to be called so that the call to con.getURL() gives us the
     // correct URL in cases where we get redirected.
     try {
-      conn.getInputStream();
+      con.getInputStream();
     } catch (FileNotFoundException e) {
-      System.err.println(filename(conn.getURL()) + ": file not found");
+      System.err.println(filename(con.getURL()) + ": file not found");
       return;
     }
-    System.out.println("redirected url: " + conn.getURL());
+    System.out.println("redirected url: " + con.getURL());
 
-    download((HttpURLConnection) conn, new File(filename(conn.getURL())));
+    download((HttpURLConnection) con, new File(filename(con.getURL())));
   }
 
   /**
@@ -131,9 +131,9 @@ public class HTTP {
    * @throws IOException
    */
   public static void download(URL url, File file) throws IOException {
-    URLConnection conn = url.openConnection();
+    URLConnection con = url.openConnection();
 
-    download((HttpURLConnection) conn, file);
+    download((HttpURLConnection) con, file);
   }
 
   /**
@@ -147,7 +147,7 @@ public class HTTP {
    * @throws IOException
    */
   public static void download(URL url, String dirName) throws IOException {
-    URLConnection conn = url.openConnection();
+    URLConnection con = url.openConnection();
 
     File dir = new File(dirName);
 
@@ -157,7 +157,7 @@ public class HTTP {
     if (!dir.exists())
       dir.mkdirs();
 
-    download((HttpURLConnection) conn, new File(dirName + File.separator
+    download((HttpURLConnection) con, new File(dirName + File.separator
         + filename(url)));
   }
 
