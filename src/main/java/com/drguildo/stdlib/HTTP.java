@@ -29,8 +29,14 @@ public class HTTP {
    * @throws IOException
    */
   public static void download(Collection<URL> urls) throws IOException {
-    for (URL url : urls)
-      download(url);
+    File file = null;
+
+    for (URL url : urls) {
+      // Remove the preceding '/'.
+      file = new File(url.getFile().substring(1));
+      file.getParentFile().mkdirs();
+      download(url, file);
+    }
   }
 
   /**
