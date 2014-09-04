@@ -1,4 +1,4 @@
-package com.drguildo.stdlib;
+package com.drguildo.stdlib.datastructures;
 
 import java.util.ArrayList;
 import java.util.Collection;

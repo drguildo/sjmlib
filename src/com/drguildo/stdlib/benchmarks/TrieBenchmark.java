@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.drguildo.stdlib.Trie;
+import com.drguildo.stdlib.datastructures.Trie;
 
 public class TrieBenchmark {
   private static final String DICT_PATH = "src/test/resources/2of4brif.txt";
