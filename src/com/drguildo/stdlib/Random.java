@@ -85,22 +85,4 @@ public class Random {
   public boolean nextBoolean(double p) {
     return (rand.nextInt(100) * 0.01) < p;
   }
-
-  public static void main(String[] args) {
-    try {
-      FileWriter fw = new FileWriter(new File("data/doubles.txt"));
-
-      Random r = new Random();
-      double[] a = r.randArrayDouble(1000);
-      for (int i = 0; i < a.length; i++) {
-        System.out.println(a[i]);
-        fw.write(Double.toString(a[i]) + "\n");
-      }
-
-      fw.flush();
-      fw.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
 }
