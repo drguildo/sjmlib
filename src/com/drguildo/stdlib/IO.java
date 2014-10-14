@@ -20,6 +20,14 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class IO {
+  public static void print(Object msg) {
+    System.out.println(msg.toString());
+  }
+
+  public static void print(Object msg, Object... args) {
+    System.out.println(String.format(msg.toString(), args));
+  }
+
   // Read a little-endian integer from an input stream.
   public static int readInteger(InputStream in) throws IOException {
     int n;
