@@ -168,6 +168,19 @@ public class HTTP {
   }
 
   /**
+   * Returns the content-type associated with a URL.
+   */
+  public static String getContentType(String url) throws IOException {
+    String contentType;
+
+    HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+    contentType = con.getContentType();
+    con.disconnect();
+
+    return contentType;
+  }
+
+  /**
    * Attempts to return the filename portion of a URL.
    */
   public static String filename(URL url) {
