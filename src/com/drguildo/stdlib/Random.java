@@ -1,8 +1,6 @@
 package com.drguildo.stdlib;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Simon Morgan <sjm@eml.cc>
@@ -84,5 +82,12 @@ public class Random {
 
   public boolean nextBoolean(double p) {
     return (rand.nextInt(100) * 0.01) < p;
+  }
+
+  public String chooseString(List<String> l) {
+    if (l.isEmpty())
+      throw new IllegalArgumentException("List cannot be empty");
+    else
+      return l.get(rand.nextInt(l.size()));
   }
 }
