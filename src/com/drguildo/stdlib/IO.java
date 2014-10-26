@@ -20,12 +20,23 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class IO {
+  // The print methods are just for convenience aliases for System.out.println.
   public static void print(Object msg) {
     System.out.println(msg.toString());
   }
 
   public static void print(Object msg, Object... args) {
     System.out.println(String.format(msg.toString(), args));
+  }
+
+  public static void debug(Object msg) {
+    System.out.println(msg);
+    System.exit(0);
+  }
+
+  public static void debug(Object msg, Object... args) {
+    System.out.println(String.format(msg.toString(), args));
+    System.exit(0);
   }
 
   // Read a little-endian integer from an input stream.
