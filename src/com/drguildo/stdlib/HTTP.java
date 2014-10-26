@@ -52,26 +52,33 @@ public class HTTP {
     if (connection instanceof HttpURLConnection) {
       HttpURLConnection httpConnection = (HttpURLConnection) connection;
 
-      System.out.println(url + ": " + httpConnection.getResponseCode() + " "
-          + httpConnection.getResponseMessage());
-
-      System.out.print(file + ": ");
-
-      if (file.exists()) {
-        System.out.println("file exists; skipping");
-        return;
-      }
+      printResponse(httpConnection);
 
       BufferedInputStream bin = null;
       FileOutputStream out = null;
 
       try {
+        // if there's a redirect, the path/filename will be different.
+        URL trueUrl = httpConnection.getURL();
+        if (!url.equals(trueUrl)) {
+          System.out.println("redirected " + url + " -> " + trueUrl);
+          file = new File(file.getParentFile() + File.separator
+              + filename(trueUrl));
+        }
+
+        System.out.print(file + ": ");
+
+        if (file.exists()) {
+          System.out.println("file exists; skipping");
+          return;
+        }
+
         long fileSize = httpConnection.getContentLengthLong();
         String sizeStr = sizeString(fileSize);
         long read = 0; // how many bytes we've read so far
 
-        // this call should handle redirects for us
-        httpConnection.getInputStream();
+        System.out.println(filename(httpConnection.getURL()));
+
         bin = new BufferedInputStream(httpConnection.getInputStream());
         out = new FileOutputStream(file);
 
@@ -144,8 +151,7 @@ public class HTTP {
     if (connection instanceof HttpURLConnection) {
       HttpURLConnection httpConnection = (HttpURLConnection) connection;
 
-      System.out.println(url + ": " + httpConnection.getResponseCode() + " "
-          + httpConnection.getResponseMessage());
+      printResponse(httpConnection);
 
       try {
         br = new BufferedReader(new InputStreamReader(
@@ -211,6 +217,15 @@ public class HTTP {
     }
 
     return matches;
+  }
+
+  private static void printResponse(HttpURLConnection con) {
+    try {
+      IO.print(con.getURL() + ": " + con.getResponseCode() + " "
+          + con.getResponseMessage());
+    } catch (IOException e) {
+      IO.print(e + ": " + e.getMessage());
+    }
   }
 
   /**
