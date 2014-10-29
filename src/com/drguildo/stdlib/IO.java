@@ -25,7 +25,7 @@ public class IO {
     System.out.println(msg.toString());
   }
 
-  public static void print(Object msg, Object... args) {
+  public static void printf(Object msg, Object... args) {
     System.out.println(String.format(msg.toString(), args));
   }
 
