@@ -39,6 +39,16 @@ public class IO {
     System.exit(0);
   }
 
+  public static void err(Object msg) {
+    System.err.println(msg);
+    System.exit(-1);
+  }
+
+  public static void err(Object msg, Object... args) {
+    System.err.println(String.format(msg.toString(), args));
+    System.exit(-1);
+  }
+
   // Read a little-endian integer from an input stream.
   public static int readInteger(InputStream in) throws IOException {
     int n;
