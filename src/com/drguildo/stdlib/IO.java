@@ -30,12 +30,12 @@ public class IO {
   }
 
   public static void debug(Object msg) {
-    System.out.println(msg);
+    System.out.println("DEBUG: " + msg);
     System.exit(0);
   }
 
   public static void debug(Object msg, Object... args) {
-    System.out.println(String.format(msg.toString(), args));
+    System.out.println("DEBUG: " + String.format(msg.toString(), args));
     System.exit(0);
   }
 
