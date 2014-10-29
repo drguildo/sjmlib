@@ -56,10 +56,10 @@ public class IO {
 
     in.read(b);
 
-    n = b[0] << 24;
-    n = n | b[1] << 16;
-    n = n | b[2] << 8;
-    n = n | b[3];
+    n = b[3] << 24;
+    n = n | b[2] << 16;
+    n = n | b[1] << 8;
+    n = n | b[0];
 
     return n;
   }
