@@ -35,22 +35,18 @@ public class IO {
 
   public static void dbg(Object msg) {
     System.out.println("DEBUG: " + msg);
-    System.exit(0);
   }
 
   public static void dbg(Object msg, Object... args) {
     System.out.println("DEBUG: " + String.format(msg.toString(), args));
-    System.exit(0);
   }
 
   public static void err(Object msg) {
     System.err.println(msg);
-    System.exit(-1);
   }
 
   public static void err(Object msg, Object... args) {
     System.err.println(String.format(msg.toString(), args));
-    System.exit(-1);
   }
 
   // Read a little-endian integer from an input stream.
