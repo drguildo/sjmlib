@@ -25,6 +25,10 @@ public class IO {
     System.out.println(msg.toString());
   }
 
+  public static void print() {
+    System.out.println();
+  }
+
   public static void printf(Object msg, Object... args) {
     System.out.println(String.format(msg.toString(), args));
   }
