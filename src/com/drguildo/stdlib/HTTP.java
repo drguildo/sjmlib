@@ -61,13 +61,13 @@ public class HTTP {
         // if there's a redirect, the path/filename will be different.
         URL trueUrl = httpConnection.getURL();
         if (!url.equals(trueUrl)) {
-          System.out.println("redirected " + url + " -> " + trueUrl);
+          IO.prn("redirected " + url + " -> " + trueUrl);
           file = new File(file.getParentFile() + File.separator
               + filename(trueUrl));
         }
 
         if (file.exists()) {
-          System.out.println(file + ": file exists; skipping");
+          IO.prn(file + ": file exists; skipping");
           return;
         }
 
@@ -75,7 +75,7 @@ public class HTTP {
         String sizeStr = sizeString(fileSize);
         long read = 0; // how many bytes we've read so far
 
-        System.out.println(filename(httpConnection.getURL()));
+        IO.prn(filename(httpConnection.getURL()));
 
         bin = new BufferedInputStream(httpConnection.getInputStream());
         out = new FileOutputStream(file);
@@ -85,17 +85,17 @@ public class HTTP {
         while ((count = bin.read(data, 0, BLOCK_SIZE)) != -1) {
           out.write(data, 0, count);
           if (fileSize == -1) {
-            System.out.print(".");
+            IO.prn(".");
           } else {
             read = read + count;
-            System.out.print("\r" + file + ": ");
-            System.out.print(percent(read, fileSize) + " ");
-            System.out.print("(" + sizeStr + ")");
+            IO.prn("\r" + file + ": ");
+            IO.prn(percent(read, fileSize) + " ");
+            IO.prn("(" + sizeStr + ")");
           }
         }
-        System.out.println();
+        IO.prn();
       } catch (IOException e) {
-        System.err.println(e.getLocalizedMessage());
+        IO.err(e.getLocalizedMessage());
 
         if (file.exists())
           file.delete();
@@ -219,10 +219,10 @@ public class HTTP {
 
   private static void printResponse(HttpURLConnection con) {
     try {
-      IO.print(con.getURL() + ": " + con.getResponseCode() + " "
+      IO.prn(con.getURL() + ": " + con.getResponseCode() + " "
           + con.getResponseMessage());
     } catch (IOException e) {
-      IO.print(e + ": " + e.getMessage());
+      IO.prn(e + ": " + e.getMessage());
     }
   }
 
