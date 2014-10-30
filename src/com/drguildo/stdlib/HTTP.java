@@ -66,10 +66,8 @@ public class HTTP {
               + filename(trueUrl));
         }
 
-        System.out.print(file + ": ");
-
         if (file.exists()) {
-          System.out.println("file exists; skipping");
+          System.out.println(file + ": file exists; skipping");
           return;
         }
 
