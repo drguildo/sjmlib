@@ -61,21 +61,19 @@ public class HTTP {
         // if there's a redirect, the path/filename will be different.
         URL trueUrl = httpConnection.getURL();
         if (!url.equals(trueUrl)) {
-          IO.prn("redirected " + url + " -> " + trueUrl);
+          IO.prnl("redirected " + url + " -> " + trueUrl);
           file = new File(file.getParentFile() + File.separator
               + filename(trueUrl));
         }
 
         if (file.exists()) {
-          IO.prn(file + ": file exists; skipping");
+          IO.prnl(file + ": file exists; skipping");
           return;
         }
 
         long fileSize = httpConnection.getContentLengthLong();
         String sizeStr = sizeString(fileSize);
         long read = 0; // how many bytes we've read so far
-
-        IO.prn(filename(httpConnection.getURL()));
 
         bin = new BufferedInputStream(httpConnection.getInputStream());
         out = new FileOutputStream(file);
@@ -93,7 +91,7 @@ public class HTTP {
             IO.prn("(" + sizeStr + ")");
           }
         }
-        IO.prn();
+        IO.prnl();
       } catch (IOException e) {
         IO.err(e.getLocalizedMessage());
 
@@ -219,10 +217,10 @@ public class HTTP {
 
   private static void printResponse(HttpURLConnection con) {
     try {
-      IO.prn(con.getURL() + ": " + con.getResponseCode() + " "
+      IO.prnl(con.getURL() + ": " + con.getResponseCode() + " "
           + con.getResponseMessage());
     } catch (IOException e) {
-      IO.prn(e + ": " + e.getMessage());
+      IO.prnl(e + ": " + e.getMessage());
     }
   }
 
