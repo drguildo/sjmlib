@@ -20,11 +20,11 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class IO {
-  public static void prn(Object msg) {
+  public static <T> void prn(T msg) {
     System.out.print(msg.toString());
   }
 
-  public static void prnl(Object msg) {
+  public static <T> void prnl(T msg) {
     System.out.println(msg.toString());
   }
 
@@ -32,23 +32,26 @@ public class IO {
     System.out.println();
   }
 
-  public static void prnf(Object msg, Object... args) {
+  @SafeVarargs
+  public static <T> void prnf(T msg, T... args) {
     System.out.println(String.format(msg.toString(), args));
   }
 
-  public static void dbg(Object msg) {
+  public static <T> void dbg(T msg) {
     System.out.println("DEBUG: " + msg);
   }
 
-  public static void dbg(Object msg, Object... args) {
+  @SafeVarargs
+  public static <T> void dbg(T msg, T... args) {
     System.out.println("DEBUG: " + String.format(msg.toString(), args));
   }
 
-  public static void err(Object msg) {
+  public static <T> void err(T msg) {
     System.err.println(msg);
   }
 
-  public static void err(Object msg, Object... args) {
+  @SafeVarargs
+  public static <T> void err(T msg, T... args) {
     System.err.println(String.format(msg.toString(), args));
   }
 
