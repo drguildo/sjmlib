@@ -44,7 +44,7 @@ public class HTTP {
       download(url, dirName);
   }
 
-  private static void download(URL url, File file) throws IOException {
+  public static void download(URL url, File file) throws IOException {
     URLConnection connection = url.openConnection();
 
     connection.connect();
@@ -120,6 +120,11 @@ public class HTTP {
    * exist. Existing files will not be overwritten.
    */
   public static void download(URL url, String dirName) throws IOException {
+    download(url, dirName, filename(url));
+  }
+
+  public static void download(URL url, String dirName, String fileName)
+      throws IOException {
     File dir = new File(dirName);
 
     if (dir.exists() && !dir.isDirectory())
@@ -128,7 +133,7 @@ public class HTTP {
     if (!dir.exists())
       dir.mkdirs();
 
-    download(url, new File(dirName + File.separator + filename(url)));
+    download(url, new File(dirName + File.separator + fileName));
   }
 
   /**
