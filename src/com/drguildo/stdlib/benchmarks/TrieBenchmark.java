@@ -16,8 +16,7 @@ public class TrieBenchmark {
     ArrayList<String> a = new ArrayList<String>();
     Trie t = new Trie();
 
-    List<String> lines = Files.readAllLines(Paths.get(DICT_PATH),
-        Charset.forName("UTF-8"));
+    List<String> lines = Files.readAllLines(Paths.get(DICT_PATH), Charset.forName("UTF-8"));
 
     System.out.println("dictionary size: " + lines.size());
 

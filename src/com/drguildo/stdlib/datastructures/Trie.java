@@ -15,8 +15,7 @@ public class Trie {
     /**
      * Creates a new node.
      *
-     * @param c
-     *          the value of the node
+     * @param c the value of the node
      */
     public Node(char c) {
       val = c;
@@ -27,8 +26,7 @@ public class Trie {
     /**
      * Adds a new child node.
      *
-     * @param c
-     *          the value of the child node
+     * @param c the value of the child node
      * @return the new child node
      */
     public Node addChild(char c) {
@@ -43,8 +41,7 @@ public class Trie {
     /**
      * Checks whether this node has a child with the specified value.
      *
-     * @param c
-     *          the value of the child node
+     * @param c the value of the child node
      * @return whether this node has a child with the specified value
      */
     public boolean hasChild(char c) {
@@ -58,11 +55,9 @@ public class Trie {
     /**
      * Returns the child node with the specified value.
      *
-     * @param c
-     *          the value of the child node to return
+     * @param c the value of the child node to return
      * @return the child value with the specified value
-     * @throws IllegalArgumentException
-     *           if a child with the specified value is not found
+     * @throws IllegalArgumentException if a child with the specified value is not found
      */
     public Node getChild(char c) throws IllegalArgumentException {
       for (Node n : children)
@@ -81,11 +76,10 @@ public class Trie {
     }
 
     /**
-     * Set this node to be a terminator. A terminator can be seen as the end of
-     * a branch or the end of a sequence. However, just because a node is a
-     * terminator does not mean it cannot have children. For example in the
-     * sequence "penises", the first "s" would be a terminator but would have
-     * "e" and the second "s" as children.
+     * Set this node to be a terminator. A terminator can be seen as the end of a branch or the end
+     * of a sequence. However, just because a node is a terminator does not mean it cannot have
+     * children. For example in the sequence "penises", the first "s" would be a terminator but
+     * would have "e" and the second "s" as children.
      */
     public void setTerminated() {
       terminated = true;
@@ -114,8 +108,7 @@ public class Trie {
   /**
    * Add a new string to this trie.
    *
-   * @param s
-   *          the string to add
+   * @param s the string to add
    */
   public void add(String s) {
     if (s.length() < 1)
@@ -143,8 +136,7 @@ public class Trie {
   /**
    * Checks whether a string is contained in the trie.
    *
-   * @param s
-   *          the string to search for
+   * @param s the string to search for
    * @return whether the trie contains the string
    */
   public boolean contains(String s) {
@@ -186,11 +178,9 @@ public class Trie {
   }
 
   /**
-   * Returns a collection of all anagrams of the specified string that are
-   * contained in the trie.
+   * Returns a collection of all anagrams of the specified string that are contained in the trie.
    *
-   * @param s
-   *          the string to search for anagrams of
+   * @param s the string to search for anagrams of
    * @return a collection of all anagrams found
    */
   public Collection<String> getAnagrams(String s) {

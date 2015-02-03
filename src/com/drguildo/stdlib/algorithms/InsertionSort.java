@@ -10,12 +10,11 @@ public class InsertionSort {
   /**
    * Sorts an array of integers and returns the sorted array.
    * 
-   * Insertion sort works by taking a section of a list, initially consisting of
-   * a single element, and iterating through the remaining elements and
-   * inserting them into that section in the correct (i.e. sorted) location.
+   * Insertion sort works by taking a section of a list, initially consisting of a single element,
+   * and iterating through the remaining elements and inserting them into that section in the
+   * correct (i.e. sorted) location.
    * 
-   * @param a
-   *          an array of integers to be sorted
+   * @param a an array of integers to be sorted
    * @return a sorted array of integers
    */
   public static int[] sort(int[] a) {

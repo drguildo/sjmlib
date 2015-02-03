@@ -12,8 +12,7 @@ public class Random {
   /**
    * Generates a list of random boolean values.
    *
-   * @param len
-   *          the number of values to generate
+   * @param len the number of values to generate
    * @return a list of random booleans
    */
   public boolean[] randArrayBool(int len) {
@@ -29,8 +28,7 @@ public class Random {
   /**
    * Generates a list of random integers.
    *
-   * @param len
-   *          the number of values to generate
+   * @param len the number of values to generate
    * @return a list of random integers
    */
   public int[] randArrayInt(int len) {
@@ -44,13 +42,11 @@ public class Random {
   }
 
   /**
-   * Generates a list of random integers, each one being between 0 (inclusive)
-   * and max (exclusive). See {@link Random#randArrayInt(int)}.
+   * Generates a list of random integers, each one being between 0 (inclusive) and max (exclusive).
+   * See {@link Random#randArrayInt(int)}.
    *
-   * @param len
-   *          the number of values to generate
-   * @param max
-   *          the maximum value (exclusive) to generate
+   * @param len the number of values to generate
+   * @param max the maximum value (exclusive) to generate
    * @return a list of random integers
    */
   public int[] randArrayInt(int len, int max) {
@@ -66,8 +62,7 @@ public class Random {
   /**
    * Generates a list of random doubles, each one being between 0.0 and 1.0.
    *
-   * @param len
-   *          the number of values to generate
+   * @param len the number of values to generate
    * @return a list of random doubles
    */
   public double[] randArrayDouble(int len) {

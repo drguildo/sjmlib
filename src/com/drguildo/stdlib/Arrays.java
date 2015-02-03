@@ -102,8 +102,7 @@ public class Arrays {
   /**
    * Finds the largest value in an array of doubles.
    * 
-   * @param a
-   *          the array of doubles
+   * @param a the array of doubles
    * @return the largest value in the array
    */
   public static double max(double[] a) {
@@ -123,8 +122,7 @@ public class Arrays {
   /**
    * Finds the largest value in an array of integers.
    * 
-   * @param a
-   *          the array of integers
+   * @param a the array of integers
    * @return the largest value in the array
    */
   public static int max(int[] a) {
@@ -142,6 +140,6 @@ public class Arrays {
   }
 
   public static void main(String[] args) {
-    System.out.println(toString(new String[][] { { "" } }));
+    System.out.println(toString(new String[][] {{""}}));
   }
 }

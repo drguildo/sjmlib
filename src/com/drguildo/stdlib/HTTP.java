@@ -35,11 +35,9 @@ public class HTTP {
   }
 
   /**
-   * Downloads a list of URLs to the specified directory. Existing files will
-   * not be overwritten.
+   * Downloads a list of URLs to the specified directory. Existing files will not be overwritten.
    */
-  public static void download(Collection<URL> urls, String dirName)
-      throws IOException {
+  public static void download(Collection<URL> urls, String dirName) throws IOException {
     for (URL url : urls)
       download(url, dirName);
   }
@@ -62,8 +60,7 @@ public class HTTP {
         URL trueUrl = httpConnection.getURL();
         if (!url.equals(trueUrl)) {
           IO.prnl("redirected " + url + " -> " + trueUrl);
-          file = new File(file.getParentFile() + File.separator
-              + filename(trueUrl));
+          file = new File(file.getParentFile() + File.separator + filename(trueUrl));
         }
 
         if (file.exists()) {
@@ -108,23 +105,22 @@ public class HTTP {
   }
 
   /**
-   * Downloads a URL to the current directory, preserving the filename. Existing
-   * files will not be overwritten.
+   * Downloads a URL to the current directory, preserving the filename. Existing files will not be
+   * overwritten.
    */
   public static void download(URL url) throws IOException {
     download(url, new File(filename(url)));
   }
 
   /**
-   * Downloads a URL to the specified directory, creating it if it doesn't
-   * exist. Existing files will not be overwritten.
+   * Downloads a URL to the specified directory, creating it if it doesn't exist. Existing files
+   * will not be overwritten.
    */
   public static void download(URL url, String dirName) throws IOException {
     download(url, dirName, filename(url));
   }
 
-  public static void download(URL url, String dirName, String fileName)
-      throws IOException {
+  public static void download(URL url, String dirName, String fileName) throws IOException {
     File dir = new File(dirName);
 
     if (dir.exists() && !dir.isDirectory())
@@ -155,8 +151,7 @@ public class HTTP {
       printResponse(httpConnection);
 
       try {
-        br = new BufferedReader(new InputStreamReader(
-            httpConnection.getInputStream()));
+        br = new BufferedReader(new InputStreamReader(httpConnection.getInputStream()));
 
         while ((line = br.readLine()) != null) {
           sb.append(line);
@@ -203,8 +198,7 @@ public class HTTP {
   /**
    * Searches a URL for all strings matching a regular expression.
    */
-  public static Collection<String> matches(URL url, String pattern)
-      throws IOException {
+  public static Collection<String> matches(URL url, String pattern) throws IOException {
     HashSet<String> matches = new HashSet<String>();
 
     String text = fetch(url);
@@ -222,8 +216,7 @@ public class HTTP {
 
   private static void printResponse(HttpURLConnection con) {
     try {
-      IO.prnl(con.getURL() + ": " + con.getResponseCode() + " "
-          + con.getResponseMessage());
+      IO.prnl(con.getURL() + ": " + con.getResponseCode() + " " + con.getResponseMessage());
     } catch (IOException e) {
       IO.prnl(e + ": " + e.getMessage());
     }
@@ -240,11 +233,10 @@ public class HTTP {
     if (size <= 0)
       return "0";
 
-    String[] units = new String[] { "B", "KB", "MB", "GB", "TB", "PB", "EB" };
+    String[] units = new String[] {"B", "KB", "MB", "GB", "TB", "PB", "EB"};
     int digitGroups = (int) (Math.log10(size) / Math.log10(1000));
 
-    return new DecimalFormat("#,##0.#").format(size
-        / Math.pow(1000, digitGroups))
+    return new DecimalFormat("#,##0.#").format(size / Math.pow(1000, digitGroups))
         + units[digitGroups];
   }
 }
