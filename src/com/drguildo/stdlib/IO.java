@@ -45,8 +45,9 @@ public class IO {
     System.out.println("DEBUG: " + String.format(msg.toString(), args));
   }
 
-  public static <T> void err(T msg) {
+  public static <T> void err(T msg, int status) {
     System.err.println(msg);
+    System.exit(status);
   }
 
   @SafeVarargs
