@@ -1,3 +1,5 @@
+package com.drguildo.stdlib;
+
 import static org.junit.Assert.*;
 
 import java.net.URL;
