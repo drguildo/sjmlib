@@ -12,13 +12,15 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-// FIXME: Deal with certain classes of error (e.g. 504).
+// FIXME: Deal with certain classes of error (e.g. 504, invalid response codes).
 public class HTTP {
   private static final int BLOCK_SIZE = 8192;
+  private static HashMap<String, String> headers = new HashMap<String, String>();
 
   /**
    * Downloads a list of URLs. Existing files will not be overwritten.
@@ -44,6 +46,9 @@ public class HTTP {
 
   public static void download(URL url, File file) throws IOException {
     URLConnection connection = url.openConnection();
+
+    for (String key : headers.keySet())
+      connection.setRequestProperty(key, headers.get(key));
 
     connection.connect();
 
@@ -143,6 +148,9 @@ public class HTTP {
 
     URLConnection connection = url.openConnection();
 
+    for (String key : headers.keySet())
+      connection.setRequestProperty(key, headers.get(key));
+
     connection.connect();
 
     if (connection instanceof HttpURLConnection) {
@@ -212,6 +220,11 @@ public class HTTP {
     }
 
     return matches;
+  }
+
+  public static void addHeader(String key, String val) {
+    if (!headers.containsKey(key))
+      headers.put(key, val);
   }
 
   private static void printResponse(HttpURLConnection con) {
