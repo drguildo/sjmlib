@@ -107,7 +107,7 @@ public class Arrays {
    */
   public static double max(double[] a) {
     if (a.length == 0)
-      throw new java.lang.IllegalArgumentException("array is empty");
+      throw new IllegalArgumentException("array is empty");
 
     double m = a[0];
 
@@ -127,7 +127,7 @@ public class Arrays {
    */
   public static int max(int[] a) {
     if (a.length == 0)
-      throw new java.lang.IllegalArgumentException("array is empty");
+      throw new IllegalArgumentException("array is empty");
 
     int m = a[0];
 
