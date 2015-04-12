@@ -4,10 +4,25 @@ import java.util.List;
 
 /**
  * @author Simon Morgan <sjm@eml.cc>
- *
  */
 public class Random {
   private final java.util.Random rand = new java.util.Random();
+
+  /**
+   * Generates a random readable ASCII string of a specified length.
+   *
+   * @param len the length of the string
+   * @return the random string
+   */
+  public String randString(int len) {
+    String s = "";
+
+    for (int i = 0; i < len; i++) {
+      s += (char) (33 + rand.nextInt(93));
+    }
+
+    return s;
+  }
 
   /**
    * Generates a list of random boolean values.
