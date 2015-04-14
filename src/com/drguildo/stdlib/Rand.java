@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * @author Simon Morgan <sjm@eml.cc>
  */
-public class Random {
+public class Rand {
   private final java.util.Random rand = new java.util.Random();
 
   /**
@@ -58,7 +58,7 @@ public class Random {
 
   /**
    * Generates a list of random integers, each one being between 0 (inclusive) and max (exclusive).
-   * See {@link Random#randArrayInt(int)}.
+   * See {@link Rand#randArrayInt(int)}.
    *
    * @param len the number of values to generate
    * @param max the maximum value (exclusive) to generate
