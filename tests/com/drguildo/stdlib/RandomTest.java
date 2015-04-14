@@ -6,11 +6,11 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 
 public class RandomTest {
-  Random rand;
+  Rand rand;
 
   @Before
   public void setUp() {
-    rand = new Random();
+    rand = new Rand();
   }
 
   @Test
