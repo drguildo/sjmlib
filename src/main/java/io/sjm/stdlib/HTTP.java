@@ -156,8 +156,6 @@ public class HTTP {
     if (connection instanceof HttpURLConnection) {
       HttpURLConnection httpConnection = (HttpURLConnection) connection;
 
-      printResponse(httpConnection);
-
       try {
         br = new BufferedReader(new InputStreamReader(httpConnection.getInputStream()));
 
