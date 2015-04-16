@@ -1,4 +1,4 @@
-package com.drguildo.stdlib;
+package io.sjm.stdlib;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;

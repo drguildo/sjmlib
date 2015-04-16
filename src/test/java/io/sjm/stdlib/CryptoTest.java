@@ -1,12 +1,12 @@
-package com.drguildo.stdlib;
-
-import static org.junit.Assert.*;
+package io.sjm.stdlib;
 
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertNotEquals;
 
 public class CryptoTest {
   Rand rand;
@@ -30,6 +30,6 @@ public class CryptoTest {
     String key = rand.randString(12);
     String encryptedStr = Crypto.encryptString(str, key);
 
-    assertEquals(str, Crypto.decryptString(encryptedStr, key));
+    assertNotEquals(str, Crypto.decryptString(encryptedStr, key));
   }
 }

@@ -1,4 +1,4 @@
-package com.drguildo.stdlib;
+package io.sjm.stdlib;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.drguildo.stdlib;
+package io.sjm.stdlib;
 
 public class Maths {
   public static int gcd(int x, int y) {

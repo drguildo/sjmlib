@@ -13,7 +13,7 @@
  * OF THIS SOFTWARE.
  */
 
-package com.drguildo.stdlib.datastructures;
+package io.sjm.stdlib.datastructures;
 
 public class BinaryTree<T extends Comparable> {
   private class Node {

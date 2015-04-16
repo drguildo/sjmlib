@@ -1,4 +1,4 @@
-package com.drguildo.stdlib.algorithms;
+package io.sjm.stdlib.algorithms;
 
 /**
  * @author Simon Morgan <sjm@sjm.io>

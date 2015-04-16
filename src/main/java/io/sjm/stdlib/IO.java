@@ -13,7 +13,7 @@
  * OF THIS SOFTWARE.
  */
 
-package com.drguildo.stdlib;
+package io.sjm.stdlib;
 
 import java.io.IOException;
 import java.io.InputStream;

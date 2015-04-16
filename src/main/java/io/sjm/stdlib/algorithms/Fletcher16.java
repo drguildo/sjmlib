@@ -13,7 +13,7 @@
  * OF THIS SOFTWARE.
  */
 
-package com.drguildo.stdlib.algorithms;
+package io.sjm.stdlib.algorithms;
 
 public class Fletcher16 {
   public static int fletcher16(byte[] data) {

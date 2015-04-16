@@ -1,4 +1,6 @@
-package com.drguildo.stdlib.benchmarks;
+package io.sjm.stdlib.benchmarks;
+
+import io.sjm.stdlib.datastructures.Trie;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -6,8 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.drguildo.stdlib.datastructures.Trie;
 
 public class TrieBenchmark {
   private static final String DICT_PATH = "resources/2of4brif.txt";

@@ -1,4 +1,4 @@
-package com.drguildo.stdlib;
+package io.sjm.stdlib;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
