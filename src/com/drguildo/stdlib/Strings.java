@@ -22,4 +22,17 @@ public class Strings {
 
     return matches;
   }
+
+  /**
+   * Converts a byte array to a hexadecimal string.
+   * 
+   * @param bs the byte array to convert
+   * @return a hexadecimal string representation of the byte array
+   */
+  public static String byteArrayToHex(byte[] bs) {
+    String s = "";
+    for (byte b : bs)
+      s += String.format("%02x", b & 0xff);
+    return s;
+  }
 }
