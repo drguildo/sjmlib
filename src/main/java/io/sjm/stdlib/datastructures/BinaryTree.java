@@ -15,7 +15,7 @@
 
 package io.sjm.stdlib.datastructures;
 
-public class BinaryTree<T extends Comparable> {
+public class BinaryTree<T extends Comparable<T>> {
   private class Node {
     Node left = null;
     Node right = null;
