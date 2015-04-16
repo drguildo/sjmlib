@@ -56,11 +56,11 @@ public class Crypto {
     return new String(cipherInstance.doFinal(Base64.getDecoder().decode(cipherText)), CHAR_ENCODING);
   }
 
-  public static String toSHA1(String data, String func) throws NoSuchAlgorithmException {
-    return toSHA1(data.getBytes(), func);
+  public static String hash(String data, String func) throws NoSuchAlgorithmException {
+    return hash(data.getBytes(), func);
   }
 
-  public static String toSHA1(byte[] data, String func) throws NoSuchAlgorithmException {
+  public static String hash(byte[] data, String func) throws NoSuchAlgorithmException {
     MessageDigest md = MessageDigest.getInstance(func);
     return Strings.byteArrayToHex(md.digest(data));
   }
