@@ -20,11 +20,11 @@ import java.io.InputStream;
 
 public class IO {
   public static <T> void prn(T msg) {
-    System.out.print(msg.toString());
+    System.out.print(msg);
   }
 
   public static <T> void prnl(T msg) {
-    System.out.println(msg.toString());
+    System.out.println(msg);
   }
 
   public static void prnl() {
@@ -33,7 +33,7 @@ public class IO {
 
   @SafeVarargs
   public static <T> void prnf(T msg, T... args) {
-    System.out.println(String.format(msg.toString(), args));
+    System.out.println(String.format(msg == null ? "" : msg.toString(), args));
   }
 
   public static <T> void dbg(T msg) {
@@ -42,7 +42,7 @@ public class IO {
 
   @SafeVarargs
   public static <T> void dbg(T msg, T... args) {
-    System.out.println("DEBUG: " + String.format(msg.toString(), args));
+    System.out.println("DEBUG: " + String.format(msg == null ? "" : msg.toString(), args));
   }
 
   public static <T> void err(T msg, int status) {
@@ -52,7 +52,7 @@ public class IO {
 
   @SafeVarargs
   public static <T> void err(T msg, T... args) {
-    System.err.println(String.format(msg.toString(), args));
+    System.err.println(String.format(msg == null ? "" : msg.toString(), args));
   }
 
   // Read a little-endian integer from an input stream.
