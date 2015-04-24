@@ -16,7 +16,11 @@
 package io.sjm.stdlib;
 
 import java.io.IOException;
+
 import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class IO {
   public static <T> void prn(T msg) {
@@ -53,6 +57,11 @@ public class IO {
   @SafeVarargs
   public static <T> void err(T msg, T... args) {
     System.err.println(String.format(msg == null ? "" : msg.toString(), args));
+  }
+
+  public static String readFile(String path, Charset encoding) throws IOException {
+    byte[] encoded = Files.readAllBytes(Paths.get(path));
+    return new String(encoded, encoding);
   }
 
   // Read a little-endian integer from an input stream.
