@@ -97,7 +97,7 @@ public class Rand {
   public String chooseString(List<String> l) {
     if (l.isEmpty())
       throw new IllegalArgumentException("List cannot be empty");
-    else
-      return l.get(rand.nextInt(l.size()));
+
+    return l.get(rand.nextInt(l.size()));
   }
 }
