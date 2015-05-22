@@ -45,6 +45,7 @@ public class HTTP {
   }
 
   public static void download(URL url, File file) throws IOException {
+    File outputFile = file;
     URLConnection connection = url.openConnection();
 
     for (String key : headers.keySet())
@@ -65,11 +66,11 @@ public class HTTP {
         URL trueUrl = httpConnection.getURL();
         if (!url.equals(trueUrl)) {
           IO.prnl("redirected " + url + " -> " + trueUrl);
-          file = new File(file.getParentFile() + File.separator + filename(trueUrl));
+          outputFile = new File(outputFile.getParentFile() + File.separator + filename(trueUrl));
         }
 
-        if (file.exists()) {
-          IO.prnl(file + ": file exists; skipping");
+        if (outputFile.exists()) {
+          IO.prnl(outputFile + ": file exists; skipping");
           return;
         }
 
@@ -78,7 +79,7 @@ public class HTTP {
         long read = 0; // how many bytes we've read so far
 
         bin = new BufferedInputStream(httpConnection.getInputStream());
-        out = new FileOutputStream(file);
+        out = new FileOutputStream(outputFile);
 
         byte data[] = new byte[BLOCK_SIZE];
         int count;
@@ -88,7 +89,7 @@ public class HTTP {
             IO.prn(".");
           } else {
             read = read + count;
-            IO.prn("\r" + file + ": ");
+            IO.prn("\r" + outputFile + ": ");
             IO.prn(percent(read, fileSize) + " ");
             IO.prn("(" + sizeStr + ")");
           }
@@ -97,8 +98,8 @@ public class HTTP {
       } catch (IOException e) {
         IO.err(e.getLocalizedMessage());
 
-        if (file.exists())
-          file.delete();
+        if (outputFile.exists())
+          outputFile.delete();
       } finally {
         if (bin != null)
           bin.close();
