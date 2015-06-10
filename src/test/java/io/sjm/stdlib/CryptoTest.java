@@ -10,7 +10,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class CryptoTest {
-  Rand rand;
+  private Rand rand;
 
   @Before
   public void setUp() throws Exception {
