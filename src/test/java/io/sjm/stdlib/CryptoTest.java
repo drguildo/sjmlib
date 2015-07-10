@@ -35,7 +35,7 @@ public class CryptoTest {
   }
 
   @Test
-  public static void testHash() throws NoSuchAlgorithmException {
+  public void testHash() throws NoSuchAlgorithmException {
     assertEquals(Crypto.hash("test", "MD5"), "098f6bcd4621d373cade4e832627b4f6");
     assertEquals(Crypto.hash("test", "SHA-1"), "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3");
     assertEquals(Crypto.hash("test", "SHA-256"),
