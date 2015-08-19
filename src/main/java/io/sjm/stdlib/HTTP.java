@@ -6,10 +6,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.*;
 import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.HashMap;
@@ -65,12 +62,12 @@ public class HTTP {
         // if there's a redirect, the path/filename will be different.
         URL trueUrl = httpConnection.getURL();
         if (!url.equals(trueUrl)) {
-          IO.prnl("redirected " + url + " -> " + trueUrl);
+          System.out.println("redirected " + url + " -> " + trueUrl);
           outputFile = new File(outputFile.getParentFile() + File.separator + filename(trueUrl));
         }
 
         if (outputFile.exists()) {
-          IO.prnl(outputFile + ": file exists; skipping");
+          System.out.println(outputFile + ": file exists; skipping");
           return;
         }
 
@@ -86,17 +83,17 @@ public class HTTP {
         while ((count = bin.read(data, 0, BLOCK_SIZE)) != -1) {
           out.write(data, 0, count);
           if (fileSize == -1) {
-            IO.prn(".");
+            System.out.println(".");
           } else {
             read = read + count;
-            IO.prn("\r" + outputFile + ": ");
-            IO.prn(percent(read, fileSize) + " ");
-            IO.prn("(" + sizeStr + ")");
+            System.out.println("\r" + outputFile + ": ");
+            System.out.println(percent(read, fileSize) + " ");
+            System.out.println("(" + sizeStr + ")");
           }
         }
-        IO.prnl();
+        System.out.println();
       } catch (IOException e) {
-        IO.err(e.getLocalizedMessage());
+        System.err.println(e.getLocalizedMessage());
 
         if (outputFile.exists())
           outputFile.delete();
@@ -241,9 +238,9 @@ public class HTTP {
 
   private static void printResponse(HttpURLConnection con) {
     try {
-      IO.prnl(con.getURL() + ": " + con.getResponseCode() + " " + con.getResponseMessage());
+      System.out.println(con.getURL() + ": " + con.getResponseCode() + " " + con.getResponseMessage());
     } catch (IOException e) {
-      IO.prnl(e + ": " + e.getMessage());
+      System.out.println(e + ": " + e.getMessage());
     }
   }
 
@@ -263,5 +260,18 @@ public class HTTP {
 
     return new DecimalFormat("#,##0.#").format(size / Math.pow(1000, digitGroups))
             + units[digitGroups];
+  }
+
+  public static URL buildURL(String string) {
+    // Sometimes I really fucking hate Java.
+    try {
+      String decodedURL = URLDecoder.decode(string, "UTF-8");
+      URL url = new URL(decodedURL);
+      URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
+      return uri.toURL();
+    } catch (Exception ex) {
+      ex.printStackTrace();
+      return null;
+    }
   }
 }

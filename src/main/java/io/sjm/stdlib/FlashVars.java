@@ -53,8 +53,8 @@ public class FlashVars extends HashMap<String, String> {
     for (String url : testUrls) {
       FlashVars fv = new FlashVars(new URL(url));
       for (Entry<String, String> e : fv.entrySet())
-        IO.prnl(e.getKey() + ": " + e.getValue());
-      IO.prnl();
+        System.out.println(e.getKey() + ": " + e.getValue());
+      System.out.println();
     }
   }
 }
