@@ -190,6 +190,19 @@ public class HTTP {
   }
 
   /**
+   * Returns the status code... returned from the server.
+   */
+  public static int getStatusCode(String url) throws IOException {
+    int statusCode;
+
+    HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+    statusCode = con.getResponseCode();
+    con.disconnect();
+
+    return statusCode;
+  }
+
+  /**
    * Attempts to return the filename portion of a URL.
    */
   public static String filename(URL url) {
@@ -245,10 +258,10 @@ public class HTTP {
     if (size <= 0)
       return "0";
 
-    String[] units = new String[] {"B", "KB", "MB", "GB", "TB", "PB", "EB"};
+    String[] units = new String[]{"B", "KB", "MB", "GB", "TB", "PB", "EB"};
     int digitGroups = (int) (Math.log10(size) / Math.log10(1000));
 
     return new DecimalFormat("#,##0.#").format(size / Math.pow(1000, digitGroups))
-        + units[digitGroups];
+            + units[digitGroups];
   }
 }
