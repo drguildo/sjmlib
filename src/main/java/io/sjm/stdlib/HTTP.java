@@ -1,11 +1,6 @@
 package io.sjm.stdlib;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.*;
 import java.text.DecimalFormat;
 import java.util.Collection;
@@ -83,20 +78,20 @@ public class HTTP {
         while ((count = bin.read(data, 0, BLOCK_SIZE)) != -1) {
           out.write(data, 0, count);
           if (fileSize == -1) {
-            System.out.println(".");
+            System.out.print(".");
           } else {
             read = read + count;
-            System.out.println("\r" + outputFile + ": ");
-            System.out.println(percent(read, fileSize) + " ");
-            System.out.println("(" + sizeStr + ")");
+            System.out.print("\r" + outputFile + ": ");
+            System.out.print(percent(read, fileSize) + " ");
+            System.out.print("(" + sizeStr + ")");
           }
         }
         System.out.println();
       } catch (IOException e) {
-        System.err.println(e.getLocalizedMessage());
-
         if (outputFile.exists())
           outputFile.delete();
+
+        throw new IOException(e);
       } finally {
         if (bin != null)
           bin.close();
@@ -179,6 +174,7 @@ public class HTTP {
   public static String getContentType(String url) throws IOException {
     String contentType;
 
+    System.out.println(url);
     HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
     contentType = con.getContentType();
     con.disconnect();
@@ -203,7 +199,13 @@ public class HTTP {
    * Attempts to return the filename portion of a URL.
    */
   public static String filename(URL url) {
-    String path = url.getPath();
+    String path = null;
+    try {
+      path = URLDecoder.decode(url.getPath(), "UTF-8");
+    } catch (UnsupportedEncodingException e) {
+      e.printStackTrace();
+      System.exit(-1);
+    }
 
     try {
       return path.substring(path.lastIndexOf('/') + 1);
