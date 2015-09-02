@@ -58,7 +58,11 @@ public class HTTP {
         URL trueUrl = httpConnection.getURL();
         if (!url.equals(trueUrl)) {
           System.out.println("redirected " + url + " -> " + trueUrl);
-          outputFile = new File(outputFile.getParentFile() + File.separator + filename(trueUrl));
+
+          if (outputFile.getParentFile() == null)
+            outputFile = new File(filename(trueUrl));
+          else
+            outputFile = new File(outputFile.getParentFile() + File.separator + filename(trueUrl));
         }
 
         if (outputFile.exists()) {
