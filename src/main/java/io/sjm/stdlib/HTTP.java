@@ -54,15 +54,19 @@ public class HTTP {
       FileOutputStream out = null;
 
       try {
-        // if there's a redirect, the path/filename will be different.
+        // If there's a redirect, the path/filename will be different.
         URL trueUrl = httpConnection.getURL();
         if (!url.equals(trueUrl)) {
           System.out.println("redirected " + url + " -> " + trueUrl);
 
-          if (outputFile.getParentFile() == null)
-            outputFile = new File(filename(trueUrl));
-          else
+          // Check whether we're outputting to a directory or not.
+          if (outputFile.getParentFile() == null) {
+            String fn = filename(trueUrl);
+            // If filename() returns an empty String then write to a generic filename.
+            outputFile = new File(fn.isEmpty() ? "out.dat" : fn);
+          } else {
             outputFile = new File(outputFile.getParentFile() + File.separator + filename(trueUrl));
+          }
         }
 
         if (outputFile.exists()) {
@@ -202,7 +206,8 @@ public class HTTP {
    * Attempts to return the filename portion of a URL.
    */
   public static String filename(URL url) {
-    String path = null;
+    String path = "";
+
     try {
       path = URLDecoder.decode(url.getPath(), "UTF-8");
     } catch (UnsupportedEncodingException e) {
@@ -213,7 +218,7 @@ public class HTTP {
     try {
       return path.substring(path.lastIndexOf('/') + 1);
     } catch (IndexOutOfBoundsException e) {
-      return null;
+      return "";
     }
   }
 
