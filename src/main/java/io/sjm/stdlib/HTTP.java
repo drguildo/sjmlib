@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 // FIXME: Deal with certain classes of error (e.g. 504, invalid response codes).
 public class HTTP {
   private static final int BLOCK_SIZE = 8192;
-  private static HashMap<String, String> headers = new HashMap<String, String>();
+  private static HashMap<String, String> headers = new HashMap<>();
 
   /**
    * Downloads a list of URLs. Existing files will not be overwritten.
@@ -103,7 +103,6 @@ public class HTTP {
           out.close();
       }
     }
-
   }
 
   /**
