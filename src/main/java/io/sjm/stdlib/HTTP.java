@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 // FIXME: Deal with certain classes of error (e.g. 504, invalid response codes).
 public class HTTP {
   private static final int BLOCK_SIZE = 8192;
+  private static final String DEFAULT_FILENAME = "out.dat";
   private static HashMap<String, String> headers = new HashMap<>();
 
   /**
@@ -37,7 +38,7 @@ public class HTTP {
   }
 
   public static void download(URL url, File file) throws IOException {
-    File outputFile = file;
+    File outputFile = file.getName().isEmpty() ? new File(DEFAULT_FILENAME) : file;
     URLConnection connection = url.openConnection();
 
     for (String key : headers.keySet())
@@ -63,7 +64,7 @@ public class HTTP {
           if (outputFile.getParentFile() == null) {
             String fn = filename(trueUrl);
             // If filename() returns an empty String then write to a generic filename.
-            outputFile = new File(fn.isEmpty() ? "out.dat" : fn);
+            outputFile = new File(fn.isEmpty() ? DEFAULT_FILENAME : fn);
           } else {
             outputFile = new File(outputFile.getParentFile() + File.separator + filename(trueUrl));
           }
