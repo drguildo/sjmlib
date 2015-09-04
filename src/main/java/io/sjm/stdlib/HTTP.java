@@ -227,7 +227,7 @@ public class HTTP {
    * Searches a URL for all strings matching a regular expression.
    */
   public static Collection<String> matches(URL url, String pattern) throws IOException {
-    HashSet<String> matches = new HashSet<String>();
+    HashSet<String> matches = new HashSet<>();
 
     String text = fetch(url);
 
