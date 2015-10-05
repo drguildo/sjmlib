@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 // FIXME: Deal with certain classes of error (e.g. 504, invalid response codes).
+// FIXME: Decide whether we're using String or URL.
 public class HTTP {
   private static final int BLOCK_SIZE = 8192;
   private static final String DEFAULT_FILENAME = "out.dat";
@@ -197,6 +198,7 @@ public class HTTP {
     int statusCode;
 
     HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+    con.setInstanceFollowRedirects(false);
     statusCode = con.getResponseCode();
     con.disconnect();
 
