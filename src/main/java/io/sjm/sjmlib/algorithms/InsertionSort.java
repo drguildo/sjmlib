@@ -1,4 +1,4 @@
-package io.sjm.stdlib.algorithms;
+package io.sjm.sjmlib.algorithms;
 
 /**
  * An implementation of insertion sort that operates on an array of integers.

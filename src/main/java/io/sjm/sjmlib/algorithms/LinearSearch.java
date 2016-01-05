@@ -1,4 +1,4 @@
-package io.sjm.stdlib.algorithms;
+package io.sjm.sjmlib.algorithms;
 
 /**
  * @author Simon Morgan <sjm@sjm.io>

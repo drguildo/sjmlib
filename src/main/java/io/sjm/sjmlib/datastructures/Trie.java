@@ -1,4 +1,4 @@
-package io.sjm.stdlib.datastructures;
+package io.sjm.sjmlib.datastructures;
 
 import java.util.ArrayList;
 import java.util.Collection;

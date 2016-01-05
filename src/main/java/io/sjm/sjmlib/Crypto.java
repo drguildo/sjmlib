@@ -1,4 +1,4 @@
-package io.sjm.stdlib;
+package io.sjm.sjmlib;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;

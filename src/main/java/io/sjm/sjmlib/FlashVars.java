@@ -1,4 +1,4 @@
-package io.sjm.stdlib;
+package io.sjm.sjmlib;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

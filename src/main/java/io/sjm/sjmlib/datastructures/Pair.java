@@ -1,4 +1,4 @@
-package io.sjm.stdlib.datastructures;
+package io.sjm.sjmlib.datastructures;
 
 public final class Pair<T1, T2> {
   public T1 a;

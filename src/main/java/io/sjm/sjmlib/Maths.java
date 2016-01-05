@@ -1,4 +1,4 @@
-package io.sjm.stdlib;
+package io.sjm.sjmlib;
 
 public class Maths {
   public static int gcd(int x, int y) {

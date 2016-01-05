@@ -13,7 +13,7 @@
  * OF THIS SOFTWARE.
  */
 
-package io.sjm.stdlib.algorithms;
+package io.sjm.sjmlib.algorithms;
 
 public class Fletcher16 {
   public static int fletcher16(byte[] data) {

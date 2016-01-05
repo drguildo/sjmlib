@@ -1,6 +1,6 @@
-package io.sjm.stdlib.benchmarks;
+package io.sjm.sjmlib.benchmarks;
 
-import io.sjm.stdlib.datastructures.Trie;
+import io.sjm.sjmlib.datastructures.Trie;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

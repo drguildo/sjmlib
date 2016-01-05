@@ -1,4 +1,4 @@
-package io.sjm.stdlib;
+package io.sjm.sjmlib;
 
 import java.util.ArrayList;
 import java.util.Collection;

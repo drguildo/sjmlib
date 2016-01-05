@@ -13,7 +13,7 @@
  * OF THIS SOFTWARE.
  */
 
-package io.sjm.stdlib.datastructures;
+package io.sjm.sjmlib.datastructures;
 
 public class BinaryTree<T extends Comparable<T>> {
   private class Node {
