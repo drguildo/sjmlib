@@ -46,8 +46,7 @@ public class FlashVars extends HashMap<String, String> {
 
   public static void main(String[] args) throws MalformedURLException, IOException {
     String[] testUrls =
-        {
-            "http://xhamster.com/movies/2704686/sex_with_chubby_amateur_slut_in_hot_amateur_porn.html",
+        {"http://xhamster.com/movies/2704686/sex_with_chubby_amateur_slut_in_hot_amateur_porn.html",
             "http://www.xvideos.com/video2552856/wife_fisting_hubbys_ass_and_gives_handjob"};
 
     for (String url : testUrls) {

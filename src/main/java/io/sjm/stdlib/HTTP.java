@@ -251,7 +251,8 @@ public class HTTP {
 
   private static void printResponse(HttpURLConnection con) {
     try {
-      System.out.println(con.getURL() + ": " + con.getResponseCode() + " " + con.getResponseMessage());
+      System.out
+          .println(con.getURL() + ": " + con.getResponseCode() + " " + con.getResponseMessage());
     } catch (IOException e) {
       System.out.println(e + ": " + e.getMessage());
     }
@@ -268,11 +269,11 @@ public class HTTP {
     if (size <= 0)
       return "0";
 
-    String[] units = new String[]{"B", "KB", "MB", "GB", "TB", "PB", "EB"};
+    String[] units = new String[] {"B", "KB", "MB", "GB", "TB", "PB", "EB"};
     int digitGroups = (int) (Math.log10(size) / Math.log10(1000));
 
     return new DecimalFormat("#,##0.#").format(size / Math.pow(1000, digitGroups))
-            + units[digitGroups];
+        + units[digitGroups];
   }
 
   public static URL buildURL(String string) {
@@ -280,7 +281,9 @@ public class HTTP {
     try {
       String decodedURL = URLDecoder.decode(string, "UTF-8");
       URL url = new URL(decodedURL);
-      URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
+      URI uri =
+          new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(),
+              url.getQuery(), url.getRef());
       return uri.toURL();
     } catch (Exception ex) {
       ex.printStackTrace();

@@ -53,7 +53,8 @@ public class Crypto {
 
     cipherInstance.init(Cipher.DECRYPT_MODE, key);
 
-    return new String(cipherInstance.doFinal(Base64.getDecoder().decode(cipherText)), CHAR_ENCODING);
+    return new String(cipherInstance.doFinal(Base64.getDecoder().decode(cipherText)),
+        CHAR_ENCODING);
   }
 
   public static String hash(String data, String func) throws NoSuchAlgorithmException {
