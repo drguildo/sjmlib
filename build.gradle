@@ -4,6 +4,9 @@ apply plugin: 'maven'
 group = "io.sjm"
 version = "0.1"
 
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
 repositories {
     mavenLocal()
     mavenCentral()
