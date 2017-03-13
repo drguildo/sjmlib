@@ -16,8 +16,6 @@
 
 package io.sjm.sjmlib.algorithms;
 
-import io.sjm.sjmlib.Rand;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,7 +33,6 @@ public class BubbleSort {
   }
 
   public static void main(String[] args) {
-    Rand r = new Rand();
     List<Integer> integers = Arrays.asList(4, 3, 2, 1, 5, 7, -2, -29, -6, 0);
     System.out.println(integers);
     sort(integers);
